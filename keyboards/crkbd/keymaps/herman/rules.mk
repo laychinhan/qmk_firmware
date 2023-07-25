@@ -9,4 +9,5 @@ COMBO_ENABLE = yes
 # This is for RGB *underglow*
 # https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
 RGBLIGHT_ENABLE = no
-LEADER_ENABLE = yes
+WPM_ENABLE = yes  # Enable word per minute counter
+OLED_ENABLE = yes # Enable OLEDs
