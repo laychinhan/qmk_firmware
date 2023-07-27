@@ -15,7 +15,13 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   FUNC,
-  BACKLIT
+  NEXT_TAB,
+  PREV_TAB,
+  NEXT_WORD,
+  PREV_WORD,
+  MCOPY,
+  MPASTE,
+  JTSEARCH
 };
 
 enum combos {
@@ -59,13 +65,13 @@ enum custom_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_DEL  ,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,JTSEARCH  ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  OSM(MOD_LALT),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_QUOT ,LCA(KC_NO) ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- OSM(MOD_LSFT),   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                     KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,OSL_FUN ,
+ OSM(MOD_LGUI),   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                     KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,OSL_FUN ,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         OSM(MOD_LGUI), GUI_ENT, LOW_TAB,   RSE_BSP ,KC_SPC  ,OSM_SFT
+                                         OSM(MOD_LSFT), GUI_ENT, LOW_TAB,   RSE_BSP ,KC_SPC  ,OSM_LCTL
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -73,10 +79,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_EXLM, KC_AT,  KC_HASH, KC_DLR,  KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______ ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_1,    KC_2,   KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    QK_LEAD ,
+      _______, KC_1,    KC_2,   KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    LCA(KC_NO) ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, OSM_LCTL, KC_TILD,KC_GRV, KC_LBRC, KC_LCBR,                       KC_RCBR, KC_RBRC, KC_COMM,KC_DOT,  KC_SLSH, _______ ,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+11--------+--------+--------+--------+--------+--------|
+      _______, XXXXXXX, KC_TILD,KC_GRV, KC_LBRC, KC_LCBR,                       KC_RCBR, KC_RBRC, KC_COMM,KC_DOT,  KC_SLSH, _______ ,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_TRNS,  KC_TRNS, LOWER,    KC_TRNS, KC_TRNS, KC_COLON
                                       //`--------------------------'  `--------------------------'
     ),
@@ -84,23 +90,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_DEL , XXXXXXX, KC_UNDS, KC_PLUS, KC_PGUP,                      XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, KC_PIPE,_______ ,
+      _______, KC_DEL , XXXXXXX, KC_UNDS, KC_PLUS, KC_PGUP,                      XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, KC_PIPE, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_HOME, KC_END , KC_MINS, KC_EQL , KC_PGDN,                      KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_APP ,_______ ,
+      _______, KC_HOME, KC_END , KC_MINS, KC_EQL , KC_PGDN,                      KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_APP, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_LT  , KC_GT  , KC_COPY, KC_PSTE, KC_SCLN,                      KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU,_______ ,
+      _______, KC_LT  , KC_GT  , MCOPY, MPASTE, KC_SCLN,                      PREV_TAB, NEXT_TAB, PREV_WORD, NEXT_WORD, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          OSM_LCTL, KC_TRNS, XXXXXXX,    RAISE  , KC_TRNS, KC_TRNS
+                                          OSM(MOD_LSFT), KC_TRNS, XXXXXXX,    RAISE  , KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
   ),
 
   [_FUNC] = LAYOUT(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_F1  , KC_F2  , KC_F3   , KC_F4 ,  KC_F5 ,                     KC_F6   , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,_______ ,
+      _______, KC_F1  , KC_F2  , KC_F3   , KC_F4 ,  KC_F5 ,                     KC_F6   , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,QK_BOOT ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_F11 , KC_F12 , XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,_______ ,
+      _______, KC_F11 , KC_F12 , XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX , XXXXXXX, XXXXXXX, KC_PAGE_DOWN, KC_PAGE_UP, _______ ,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,XXXXXXX ,
+      _______, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, KC_MISSION_CONTROL,                     KC_MPLY , KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU,XXXXXXX ,
   //|--------+--------+--------+--------+-------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, FUNC   , XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -117,6 +123,47 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case NEXT_TAB:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LEFT_GUI) SS_DOWN(X_LEFT_ALT) SS_TAP(X_RIGHT) SS_UP(X_LEFT_GUI) SS_UP(X_LEFT_ALT));
+            }
+            break;
+        case PREV_TAB:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LEFT_GUI) SS_DOWN(X_LEFT_ALT) SS_TAP(X_LEFT) SS_UP(X_LEFT_GUI) SS_UP(X_LEFT_ALT));
+            }
+        break;
+        case PREV_WORD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LEFT_ALT) SS_TAP(X_LEFT) SS_UP(X_LEFT_ALT));
+            }
+        break;
+        case NEXT_WORD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LEFT_ALT) SS_TAP(X_RIGHT) SS_UP(X_LEFT_ALT));
+            }
+        break;
+        case MCOPY:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LEFT_GUI) SS_TAP(X_C) SS_UP(X_LEFT_GUI));
+            }
+        break;
+        case MPASTE:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LEFT_GUI) SS_TAP(X_V) SS_UP(X_LEFT_GUI));
+            }
+        break;
+        case JTSEARCH:
+            if (record->event.pressed) {
+                SEND_STRING(SS_DOWN(X_LEFT_GUI) SS_DOWN(X_LEFT_SHIFT) SS_TAP(X_P) SS_UP(X_LEFT_GUI) SS_UP(X_LEFT_SHIFT));
+            }
+        break;
+    }
+    return true;
+};
 
 void oled_render_logo(void) {
     static const char PROGMEM crkbd_logo[] = {
